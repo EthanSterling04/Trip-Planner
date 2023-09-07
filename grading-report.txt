@@ -1,0 +1,776 @@
+----------------------------------------------------------------------
+running basic locate tests
+----------------------------------------------------------------------
+
+some tests failed
+
+(24 ms)
+Failed test: no POI
+    let tp = TripPlanner(
+      [[0, 0, 1, 0]],
+      [])
+    let result = tp.locate_all('bank')
+    assert _normalize_for_grading(Cons.to_vec(result)) \
+      == #0=[]
+ (tests/tests7-basic-locate.rkt:13:4)
+ reason:     an error occurred (but shouldn't have)
+ details:    DICT.get: key not found: 'bank'
+  location...:
+   tmp/project-lib/dictionaries.rkt:58:8
+  context...:
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   ...
+
+(9 ms)
+Failed test: single POI, wrong category
+    let tp = TripPlanner(
+      [[0, 0, 1, 0]],
+      [[1, 0, 'bank', 'Union']])
+    let result = tp.locate_all('food')
+    assert _normalize_for_grading(Cons.to_vec(result)) \
+      == []
+ (tests/tests7-basic-locate.rkt:13:4)
+ reason:     an error occurred (but shouldn't have)
+ details:    DICT.get: key not found: 'food'
+  location...:
+   tmp/project-lib/dictionaries.rkt:58:8
+  context...:
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   ...
+
+(12 ms)
+(17 ms)
+
+----------------------------------------------------------------------
+running advanced locate tests
+----------------------------------------------------------------------
+
+some tests failed
+
+(14 ms)
+(11 ms)
+(19 ms)
+(18 ms)
+(23 ms)
+Failed test: 3 relevant POIs, 2 at same location
+    let tp = TripPlanner(
+      [[0, 0, 1.5, 0],
+       [1.5, 0, 2.5, 0],
+       [2.5, 0, 3, 0],
+       [4, 0, 5, 0],
+       [3, 0, 4, 0]],
+      [[1.5, 0, 'bank', 'Union'],
+       [3, 0, 'barber', 'Tony'],
+       [5, 0, 'barber', 'Judy'],
+       [5, 0, 'barber', 'Lily']])
+    let result = tp.locate_all('barber')
+    assert _normalize_for_grading(Cons.to_vec(result)) \
+      == [[3, 0], [5, 0]]
+ (tests/tests7-advanced-locate.rkt:13:4)
+ reason:     assertion failure
+ condition:  [[3, 0], [5, 0], [5, 0]] == [[3, 0], [5, 0]]
+  location...:
+   tests/tests7-common.rkt:235:19
+  context...:
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/syntax.rkt:831:7
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   [repeats 1 more time]
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/syntax.rkt:660:20
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/syntax.rkt:901:4
+   /Applications/Racket v8.7/share/pkgs/sandbox-lib/racket/sandbox.rkt:483:12
+
+
+----------------------------------------------------------------------
+running basic route tests
+----------------------------------------------------------------------
+
+all tests passed
+
+----------------------------------------------------------------------
+running advanced route tests
+----------------------------------------------------------------------
+
+some tests failed
+
+(15 ms)
+Failed test: Destination doesn't exist
+    let tp = TripPlanner(
+      [[0, 0, 1.5, 0],
+       [1.5, 0, 2.5, 0],
+       [2.5, 0, 3, 0]],
+      [[1.5, 0, 'bank', 'Union'],
+       [3, 0, 'barber', 'Tony']])
+    let result = tp.plan_route(0, 0, 'Judy')
+    assert Cons.to_vec(result) \
+      == []
+ (tests/tests7-advanced-route.rkt:13:4)
+ reason:     an error occurred (but shouldn't have)
+ details:    DICT.get: key not found: 'Judy'
+  location...:
+   tmp/project-lib/dictionaries.rkt:58:8
+  context...:
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   ...
+
+Failed test: Destination isn't reachable
+    let tp = TripPlanner(
+      [[0, 0, 1.5, 0],
+       [1.5, 0, 2.5, 0],
+       [2.5, 0, 3, 0],
+       [4, 0, 5, 0]],
+      [[1.5, 0, 'bank', 'Union'],
+       [3, 0, 'barber', 'Tony'],
+       [5, 0, 'barber', 'Judy']])
+    let result = tp.plan_route(0, 0, 'Judy')
+    assert Cons.to_vec(result) \
+      == []
+ (tests/tests7-advanced-route.rkt:13:4)
+ reason:     an error occurred (but shouldn't have)
+ details:    «vec».__index_ref__: contract violation
+   expected: nat?
+   given: #<void>
+   in: the 1st argument of
+       (-> nat? AnyC)
+   contract from: «vec».__index_ref__
+   blaming: method caller
+    (assuming the contract is correct)
+   at: /Users/tochukwu/Documents/PHD STUFFS&APPLICATIONS/CLASSES-NORTHWESTERN/WINTER-QUARTER-2023/COMP_SCI_214/214-materials/grading/tmp/submission.rkt:191:26
+  context...:
+   /Applications/Racket v8.7/collects/racket/contract/private/blame.rkt:346:0: raise-blame-error
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:363:46
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:55:2
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:49:2
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   ...
+
+(87 ms)
+(46 ms)
+(41 ms)
+(26 ms)
+(94 ms)
+
+Stress Tests
+~~~~~~~~~~~~
+
+ - Building TripPlanner (45 intersections, 45 roads)... done (84 ms).
+ - Planning route to florist... done (783 ms).
+ - Building TripPlanner (10 intersections, 45 roads)... done (68 ms).
+ - Planning route to florist... done (202 ms).
+
+
+----------------------------------------------------------------------
+running basic nearby tests
+----------------------------------------------------------------------
+
+some tests failed
+
+(17 ms)
+(27 ms)
+(31 ms)
+Failed test: 2 relevant POIs; 1 reachable
+    let tp = TripPlanner(
+      [[0, 0, 1.5, 0],
+       [1.5, 0, 2.5, 0],
+       [2.5, 0, 3, 0],
+       [4, 0, 5, 0]],
+      [[1.5, 0, 'bank', 'Union'],
+       [3, 0, 'barber', 'Tony'],
+       [4, 0, 'food', 'Jollibee'],
+       [5, 0, 'barber', 'Judy']])
+    let result = tp.find_nearby(0, 0, 'barber', 2)
+    assert _normalize_for_grading(Cons.to_vec(result)) \
+      == [[3, 0, 'barber', 'Tony']]
+ (tests/tests7-basic-nearby.rkt:13:4)
+ reason:     an error occurred (but shouldn't have)
+ details:    «vec».__index_ref__: contract violation
+   expected: nat?
+   given: '#(3 0)
+   in: the 1st argument of
+       (-> nat? AnyC)
+   contract from: «vec».__index_ref__
+   blaming: method caller
+    (assuming the contract is correct)
+   at: /Users/tochukwu/Documents/PHD STUFFS&APPLICATIONS/CLASSES-NORTHWESTERN/WINTER-QUARTER-2023/COMP_SCI_214/214-materials/grading/tmp/submission.rkt:200:55
+  context...:
+   /Applications/Racket v8.7/collects/racket/contract/private/blame.rkt:346:0: raise-blame-error
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:363:46
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/syntax.rkt:292:0: dssl-for/fun
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   ...
+
+
+----------------------------------------------------------------------
+running advanced nearby tests
+----------------------------------------------------------------------
+
+some tests failed
+
+Failed test: No POIs in requested category
+    let tp = TripPlanner(
+      [[0, 0, 1.5, 0],
+       [1.5, 0, 2.5, 0],
+       [2.5, 0, 3, 0],
+       [4, 0, 5, 0]],
+      [[1.5, 0, 'bank', 'Union'],
+       [3, 0, 'barber', 'Tony'],
+       [5, 0, 'barber', 'Judy']])
+    let result = tp.find_nearby(0, 0, 'food', 1)
+    assert _normalize_for_grading(Cons.to_vec(result)) \
+      == []
+ (tests/tests7-advanced-nearby.rkt:13:4)
+ reason:     an error occurred (but shouldn't have)
+ details:    DICT.get: key not found: 'food'
+  location...:
+   tmp/project-lib/dictionaries.rkt:58:8
+  context...:
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   ...
+
+Failed test: Relevant POI isn't reachable
+    let tp = TripPlanner(
+      [[0, 0, 1.5, 0],
+       [1.5, 0, 2.5, 0],
+       [2.5, 0, 3, 0],
+       [4, 0, 5, 0]],
+      [[1.5, 0, 'bank', 'Union'],
+       [3, 0, 'barber', 'Tony'],
+       [4, 0, 'food', 'Jollibee'],
+       [5, 0, 'barber', 'Judy']])
+    let result = tp.find_nearby(0, 0, 'food', 1)
+    assert _normalize_for_grading(Cons.to_vec(result)) \
+      == []
+ (tests/tests7-advanced-nearby.rkt:13:4)
+ reason:     assertion failure
+ condition:  [[4, 0, 'food', 'Jollibee']] == []
+  location...:
+   tests/tests7-common.rkt:235:19
+  context...:
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/syntax.rkt:831:7
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   [repeats 1 more time]
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/syntax.rkt:660:20
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/syntax.rkt:901:4
+   /Applications/Racket v8.7/share/pkgs/sandbox-lib/racket/sandbox.rkt:483:12
+
+Failed test: BFS is not SSSP (nearby)
+    let tp = TripPlanner(
+      [[0, 0, 0, 9],
+       [0, 9, 9, 9],
+       [0, 0, 1, 1],
+       [1, 1, 2, 2],
+       [2, 2, 3, 3],
+       [3, 3, 4, 4],
+       [4, 4, 5, 5],
+       [5, 5, 6, 6],
+       [6, 6, 7, 7],
+       [7, 7, 8, 8],
+       [8, 8, 9, 9]],
+      [[7, 7, 'haberdasher', 'Archit'],
+       [8, 8, 'haberdasher', 'Braden'],
+       [9, 9, 'haberdasher', 'Cem']])
+    let result = tp.find_nearby(0, 0, 'haberdasher', 2)
+    assert _normalize_for_grading(Cons.to_vec(result)) \
+      == [[7, 7, 'haberdasher', 'Archit'], [8, 8, 'haberdasher', 'Braden']]
+ (tests/tests7-advanced-nearby.rkt:13:4)
+ reason:     an error occurred (but shouldn't have)
+ details:    «vec».__index_ref__: contract violation
+   expected: nat?
+   given: '#(8 8)
+   in: the 1st argument of
+       (-> nat? AnyC)
+   contract from: «vec».__index_ref__
+   blaming: method caller
+    (assuming the contract is correct)
+   at: /Users/tochukwu/Documents/PHD STUFFS&APPLICATIONS/CLASSES-NORTHWESTERN/WINTER-QUARTER-2023/COMP_SCI_214/214-materials/grading/tmp/submission.rkt:200:55
+  context...:
+   /Applications/Racket v8.7/collects/racket/contract/private/blame.rkt:346:0: raise-blame-error
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:363:46
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/syntax.rkt:292:0: dssl-for/fun
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   ...
+
+Failed test: MST is not SSSP (nearby)
+    let tp = TripPlanner(
+      [[-1.1, -1.1, 0, 0],
+       [0, 0, 3, 0],
+       [3, 0, 3, 3],
+       [3, 3, 3, 4],
+       [0, 0, 3, 4]],
+      [[0, 0, 'food', 'Sandwiches'],
+       [3, 0, 'bank', 'Union'],
+       [3, 3, 'barber', 'Judy'],
+       [3, 4, 'barber', 'Tony']])
+    let result = tp.find_nearby(-1.1, -1.1, 'barber', 1)
+    assert _normalize_for_grading(Cons.to_vec(result)) \
+      == [[3, 4, 'barber', 'Tony']]
+ (tests/tests7-advanced-nearby.rkt:13:4)
+ reason:     an error occurred (but shouldn't have)
+ details:    «vec».__index_ref__: contract violation
+   expected: nat?
+   given: '#(3 3)
+   in: the 1st argument of
+       (-> nat? AnyC)
+   contract from: «vec».__index_ref__
+   blaming: method caller
+    (assuming the contract is correct)
+   at: /Users/tochukwu/Documents/PHD STUFFS&APPLICATIONS/CLASSES-NORTHWESTERN/WINTER-QUARTER-2023/COMP_SCI_214/214-materials/grading/tmp/submission.rkt:200:55
+  context...:
+   /Applications/Racket v8.7/collects/racket/contract/private/blame.rkt:346:0: raise-blame-error
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:363:46
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/syntax.rkt:292:0: dssl-for/fun
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   ...
+
+Failed test: 2 relevant POIs; limit 3
+    let tp = TripPlanner(
+      [[0, 0, 1.5, 0],
+       [1.5, 0, 2.5, 0],
+       [2.5, 0, 3, 0],
+       [4, 0, 5, 0],
+       [3, 0, 4, 0]],
+      [[1.5, 0, 'bank', 'Union'],
+       [3, 0, 'barber', 'Tony'],
+       [4, 0, 'food', 'Jollibee'],
+       [5, 0, 'barber', 'Judy']])
+    let result = tp.find_nearby(0, 0, 'barber', 3)
+    assert _normalize_for_grading(Cons.to_vec(result)) \
+      == [[5, 0, 'barber', 'Judy'], [3, 0, 'barber', 'Tony']]
+ (tests/tests7-advanced-nearby.rkt:13:4)
+ reason:     an error occurred (but shouldn't have)
+ details:    «vec».__index_ref__: contract violation
+   expected: nat?
+   given: '#(3 0)
+   in: the 1st argument of
+       (-> nat? AnyC)
+   contract from: «vec».__index_ref__
+   blaming: method caller
+    (assuming the contract is correct)
+   at: /Users/tochukwu/Documents/PHD STUFFS&APPLICATIONS/CLASSES-NORTHWESTERN/WINTER-QUARTER-2023/COMP_SCI_214/214-materials/grading/tmp/submission.rkt:200:55
+  context...:
+   /Applications/Racket v8.7/collects/racket/contract/private/blame.rkt:346:0: raise-blame-error
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:363:46
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/syntax.rkt:292:0: dssl-for/fun
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   ...
+
+Failed test: 2 relevant equidistant POIs; limit 1
+    let tp = TripPlanner(
+      [[-1, -1, 0, 0],
+       [0, 0, 3.5, 0],
+       [0, 0, 0, 3.5],
+       [3.5, 0, 0, 3.5]],
+      [[-1, -1, 'food', 'Jollibee'],
+       [0, 0, 'bank', 'Union'],
+       [3.5, 0, 'barber', 'Tony'],
+       [0, 3.5, 'barber', 'Judy']])
+    let result = tp.find_nearby(-1, -1, 'barber', 1)
+    assert _normalize_for_grading(Cons.to_vec(result)) \
+      "is one of" [[[3.5, 0, 'barber', 'Tony']],
+                   [[0, 3.5, 'barber', 'Judy']]]
+ (tests/tests7-advanced-nearby.rkt:13:4)
+ reason:     an error occurred (but shouldn't have)
+ details:    «vec».__index_ref__: contract violation
+   expected: nat?
+   given: '#(3.5 0)
+   in: the 1st argument of
+       (-> nat? AnyC)
+   contract from: «vec».__index_ref__
+   blaming: method caller
+    (assuming the contract is correct)
+   at: /Users/tochukwu/Documents/PHD STUFFS&APPLICATIONS/CLASSES-NORTHWESTERN/WINTER-QUARTER-2023/COMP_SCI_214/214-materials/grading/tmp/submission.rkt:200:55
+  context...:
+   /Applications/Racket v8.7/collects/racket/contract/private/blame.rkt:346:0: raise-blame-error
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:363:46
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/syntax.rkt:292:0: dssl-for/fun
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   ...
+
+Failed test: 3 relevant POIs; farther 2 at same location; limit 2
+    let tp = TripPlanner(
+      [[0, 0, 1.5, 0],
+       [1.5, 0, 2.5, 0],
+       [2.5, 0, 3, 0],
+       [4, 0, 5, 0],
+       [3, 0, 4, 0]],
+      [[1.5, 0, 'bank', 'Union'],
+       [3, 0, 'barber', 'Tony'],
+       [5, 0, 'barber', 'Judy'],
+       [5, 0, 'barber', 'Lily']])
+    let result = tp.find_nearby(0, 0, 'barber', 2)
+    assert _normalize_for_grading(Cons.to_vec(result)) \
+      "is one of" [[[5, 0, 'barber', 'Judy'], [3, 0, 'barber', 'Tony']],
+                   [[5, 0, 'barber', 'Lily'], [3, 0, 'barber', 'Tony']]]
+ (tests/tests7-advanced-nearby.rkt:13:4)
+ reason:     an error occurred (but shouldn't have)
+ details:    «vec».__index_ref__: contract violation
+   expected: nat?
+   given: '#(5 0)
+   in: the 1st argument of
+       (-> nat? AnyC)
+   contract from: «vec».__index_ref__
+   blaming: method caller
+    (assuming the contract is correct)
+   at: /Users/tochukwu/Documents/PHD STUFFS&APPLICATIONS/CLASSES-NORTHWESTERN/WINTER-QUARTER-2023/COMP_SCI_214/214-materials/grading/tmp/submission.rkt:200:55
+  context...:
+   /Applications/Racket v8.7/collects/racket/contract/private/blame.rkt:346:0: raise-blame-error
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:363:46
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/syntax.rkt:292:0: dssl-for/fun
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   ...
+
+Failed test: 3 relevant POIs; farther 2 equidistant; limit 2
+    let tp = TripPlanner(
+      [[0, 0, 1.5, 0],
+       [1.5, 0, 2.5, 0],
+       [2.5, 0, 3, 0],
+       [4, 0, 5, 0],
+       [3, 0, 4, 0]],
+      [[1.5, 0, 'bank', 'Union'],
+       [0, 0, 'barber', 'Lily'],
+       [3, 0, 'barber', 'Tony'],
+       [5, 0, 'barber', 'Judy']])
+    let result = tp.find_nearby(2.5, 0, 'barber', 2)
+    assert _normalize_for_grading(Cons.to_vec(result)) \
+      "is one of" [[[5, 0, 'barber', 'Judy'], [3, 0, 'barber', 'Tony']],
+                   [[0, 0, 'barber', 'Lily'], [3, 0, 'barber', 'Tony']]]
+ (tests/tests7-advanced-nearby.rkt:13:4)
+ reason:     an error occurred (but shouldn't have)
+ details:    «vec».__index_ref__: contract violation
+   expected: nat?
+   given: '#(3 0)
+   in: the 1st argument of
+       (-> nat? AnyC)
+   contract from: «vec».__index_ref__
+   blaming: method caller
+    (assuming the contract is correct)
+   at: /Users/tochukwu/Documents/PHD STUFFS&APPLICATIONS/CLASSES-NORTHWESTERN/WINTER-QUARTER-2023/COMP_SCI_214/214-materials/grading/tmp/submission.rkt:200:55
+  context...:
+   /Applications/Racket v8.7/collects/racket/contract/private/blame.rkt:346:0: raise-blame-error
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:363:46
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/syntax.rkt:292:0: dssl-for/fun
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   ...
+
+Failed test: POI is 2nd of 3 in that location
+    let tp = TripPlanner(
+      [[0, 0, 1.5, 0],
+       [1.5, 0, 2.5, 0],
+       [2.5, 0, 3, 0],
+       [4, 0, 5, 0],
+       [3, 0, 4, 0]],
+      [[1.5, 0, 'bank', 'Union'],
+       [3, 0, 'barber', 'Tony'],
+       [5, 0, 'food', 'Jollibee'],
+       [5, 0, 'barber', 'Judy'],
+       [5, 0, 'bar', 'Pasta']])
+    let result = tp.find_nearby(0, 0, 'barber', 2)
+    assert _normalize_for_grading(Cons.to_vec(result)) \
+      == [[5, 0, 'barber', 'Judy'], [3, 0, 'barber', 'Tony']]
+ (tests/tests7-advanced-nearby.rkt:13:4)
+ reason:     an error occurred (but shouldn't have)
+ details:    «vec».__index_ref__: contract violation
+   expected: nat?
+   given: '#(3 0)
+   in: the 1st argument of
+       (-> nat? AnyC)
+   contract from: «vec».__index_ref__
+   blaming: method caller
+    (assuming the contract is correct)
+   at: /Users/tochukwu/Documents/PHD STUFFS&APPLICATIONS/CLASSES-NORTHWESTERN/WINTER-QUARTER-2023/COMP_SCI_214/214-materials/grading/tmp/submission.rkt:200:55
+  context...:
+   /Applications/Racket v8.7/collects/racket/contract/private/blame.rkt:346:0: raise-blame-error
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:363:46
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/syntax.rkt:292:0: dssl-for/fun
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   ...
+
+
+Stress Tests
+~~~~~~~~~~~~
+
+ - Building TripPlanner (45 intersections, 45 roads)... done (123 ms).
+ - Finding closest florist... Failed test: Big sparse map
+    let tp = TripPlanner(
+      [[0, 214.0, 33.5, 211.0],
+       [33.5, 211.0, 66.5, 203.0],
+       [66.5, 203.0, 98.0, 190.0],
+       [98.0, 190.0, 127.0, 172.0],
+       [127.0, 172.0, 152.5, 149.5],
+       ...(40 more)],
+      [[0, 214.0, '"coffee"', 'Starbucks #1'],
+       [33.5, 211.0, '"coffee"', 'Starbucks #2'],
+       [66.5, 203.0, '"coffee"', 'Starbucks #3'],
+       [98.0, 190.0, '"coffee"', 'Starbucks #4'],
+       [127.0, 172.0, '"coffee"', 'Starbucks #5'],
+       ...(40 more)])
+    let result = tp.find_nearby(0, 214.0, '"coffee"', 1)
+    assert _normalize_for_grading(Cons.to_vec(result)) \
+      == [[0, 214.0, '"coffee"', 'Starbucks #1']]
+
+ (tests/tests7-advanced-nearby.rkt:127:4)
+ reason:     an error occurred (but shouldn't have)
+ details:    «vec».__index_ref__: contract violation
+   expected: nat?
+   given: '#(113.5 181.0)
+   in: the 1st argument of
+       (-> nat? AnyC)
+   contract from: «vec».__index_ref__
+   blaming: method caller
+    (assuming the contract is correct)
+   at: /Users/tochukwu/Documents/PHD STUFFS&APPLICATIONS/CLASSES-NORTHWESTERN/WINTER-QUARTER-2023/COMP_SCI_214/214-materials/grading/tmp/submission.rkt:200:55
+  context...:
+   /Applications/Racket v8.7/collects/racket/contract/private/blame.rkt:346:0: raise-blame-error
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:363:46
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/syntax.rkt:292:0: dssl-for/fun
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   ...
+
+ - Building TripPlanner (10 intersections, 45 roads)... done (67 ms).
+ - Finding closest florist... Failed test: Big dense map
+    let tp = TripPlanner(
+      [[0, 214.0, 33.5, 211.0],
+       [0, 214.0, 66.5, 203.0],
+       [0, 214.0, 98.0, 190.0],
+       [0, 214.0, 127.0, 172.0],
+       [0, 214.0, 152.5, 149.5],
+       ...(40 more)],
+      [[0, 214.0, '"coffee"', 'Starbucks #1'],
+       [33.5, 211.0, '"coffee"', 'Starbucks #2'],
+       [66.5, 203.0, '"coffee"', 'Starbucks #3'],
+       [98.0, 190.0, '"coffee"', 'Starbucks #4'],
+       [127.0, 172.0, '"coffee"', 'Starbucks #5'],
+       [152.5, 149.5, '"coffee"', 'Starbucks #6'],
+       [174.5, 123.5, '"coffee"', 'Starbucks #7'],
+       [192.0, 94.0, '"coffee"', 'Starbucks #8'],
+       [204.5, 62.5, '"coffee"', 'Starbucks #9'],
+       [211.5, 29.5, '"coffee"', 'Starbucks #10']])
+    let result = tp.find_nearby(0, 214.0, '"coffee"', 1)
+    assert _normalize_for_grading(Cons.to_vec(result)) \
+      == [[0, 214.0, '"coffee"', 'Starbucks #1']]
+
+ (tests/tests7-advanced-nearby.rkt:127:4)
+ reason:     an error occurred (but shouldn't have)
+ details:    «vec».__index_ref__: contract violation
+   expected: nat?
+   given: '#(204.5 62.5)
+   in: the 1st argument of
+       (-> nat? AnyC)
+   contract from: «vec».__index_ref__
+   blaming: method caller
+    (assuming the contract is correct)
+   at: /Users/tochukwu/Documents/PHD STUFFS&APPLICATIONS/CLASSES-NORTHWESTERN/WINTER-QUARTER-2023/COMP_SCI_214/214-materials/grading/tmp/submission.rkt:200:55
+  context...:
+   /Applications/Racket v8.7/collects/racket/contract/private/blame.rkt:346:0: raise-blame-error
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:363:46
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/raco-cross/8.7/x86_64-macosx-cs-mi/share/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/syntax.rkt:292:0: dssl-for/fun
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   /Applications/Racket v8.7/collects/racket/contract/private/arrow-higher-order.rkt:375:33
+   /Users/tochukwu/Library/Racket/8.7/pkgs/dssl2/private/stxparams.rkt:38:2
+   ...
+
+
+
+----------------------------------------------------------------------
+running eight_principles tests
+----------------------------------------------------------------------
+
+all tests passed
+
+----------------------------------------------------------------------
+determining overall outcome
+----------------------------------------------------------------------
+
+not yet
